@@ -11,13 +11,8 @@ import os
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 import joblib
-# from . import settings
 
 
-# dataframe_path = os.path.join(settings.BASE_DIR, 'mysite', 'ML_ready_data.csv')
-
-
-# dataframe = pd.read_csv(dataframe_path, index_col=0)
 dataframe = pd.read_csv('ML_ready_data.csv', index_col=0)
                         
 X = dataframe.drop(columns=["player1_win"])
