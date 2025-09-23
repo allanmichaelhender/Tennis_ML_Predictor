@@ -1,5 +1,5 @@
 """
-URL configuration for Tennis_ML_Predictor project.
+URL configuration for mysite project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", views.random_forest),
+    path("logistic_regression/", views.logistic_regression),
+    path("decision_tree/", views.decision_tree),
 ]
