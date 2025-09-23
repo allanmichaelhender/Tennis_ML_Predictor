@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Tennis_ML_Predictor.urls'
@@ -101,16 +103,26 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
-STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
-STATIC_ROOT = BASE_DIR / 'assets'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+# Your STATIC_URL should be set.
+STATIC_URL = '/static/'
+
+# When DEBUG is False (i.e., in production on Render), configure STATIC_ROOT.
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles`.
+    # This is a convention for many platforms, including Render.
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
