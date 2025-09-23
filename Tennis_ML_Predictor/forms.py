@@ -3,8 +3,9 @@ import pandas as pd
 import os
 from . import settings
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-players_csv_path = os.path.join(settings.BASE_DIR, 'Tennis_ML_predictor', 'players_data.csv')
+players_csv_path = os.path.join(script_dir, 'players_data.csv')
 
 players = pd.read_csv(players_csv_path)
 
