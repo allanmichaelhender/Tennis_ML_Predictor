@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block  content%}
+    <p>Currently due to limitations in having data up to the current day, all matches are simulated as taking place on Jan 1st 2025.</p>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -22,7 +24,6 @@
     <h2>Probability {{player_two}} wins is {{return_val.0.0}}</h2>
     {% endif %}
 
-    <p>Currently due to limitations in having data up to the current day, all matches are simulated as taking place on Jan 1st 2025.</p>
 
 
 {% endblock %}
