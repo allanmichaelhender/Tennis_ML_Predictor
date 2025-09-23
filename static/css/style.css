@@ -52,7 +52,9 @@ h2 {
 
 p {
     font-size: 1rem;
+  text-align: center;
 }
+
 
 a, .logout-button {
     text-decoration: none;
