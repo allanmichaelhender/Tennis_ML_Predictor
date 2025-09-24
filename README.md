@@ -1,4 +1,4 @@
-# [Web App]([https://guinea-pig-portfolio.onrender.com/](https://tennis-ml-predictor.onrender.com/))
+# [Web App](https://tennis-ml-predictor.onrender.com/)
 ---
 Welcome to the code for my Machine Learning based Tennis Match Predictor.
 
