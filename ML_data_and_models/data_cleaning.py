@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 from data_functions import calculate_games_add_tiebreak
 
-
-
 data_2015 = pd.read_csv('Data/atp_matches_2015.csv')
 data_2016 = pd.read_csv('Data/atp_matches_2016.csv')
 data_2017 = pd.read_csv('Data/atp_matches_2017.csv')
@@ -26,25 +24,26 @@ data['tourney_date'] = pd.to_datetime(data['tourney_date'], format='%Y%m%d')
 data[['w_games_won', 'l_games_won']] = data['score'].apply(lambda x: pd.Series(calculate_games_add_tiebreak(x)))
 
 data["w_aces_per_serve"] = np.where(
-    data["w_svpt"] == 0,  # Condition: if w_svpt is zero
-    np.nan,                  # Value if True: set to 1
-    data["w_ace"] / data["w_svpt"] # Value if False: perform the normal division
+    data["w_svpt"] == 0,  
+    np.nan,                  
+    data["w_ace"] / data["w_svpt"] 
     )
 data["l_aces_per_serve"] = np.where(
-    data["l_svpt"] == 0,  # Condition: if l_svpt is zero
-    np.nan,                  # Value if True: set to 1
-    data["l_ace"] / data["l_svpt"] # Value if False: perform the normal division
+    data["l_svpt"] == 0, 
+    np.nan,                
+    data["l_ace"] / data["l_svpt"] 
     )
 
 data["w_bp_saved_per_faced"] = np.where(
-    data["w_bpFaced"] == 0,  # Condition: if w_svpt is zero
-    np.nan,                  # Value if True: set to 1
-    data["w_bpSaved"] / data["w_bpFaced"] # Value if False: perform the normal division
+    data["w_bpFaced"] == 0,  
+    np.nan,                  
+    data["w_bpSaved"] / data["w_bpFaced"]
     )
+
 data["l_bp_saved_per_faced"] = np.where(
-    data["l_bpFaced"] == 0,  # Condition: if l_svpt is zero
-    np.nan,                  # Value if True: set to 1
-    data["l_bpSaved"] / data["l_bpFaced"] # Value if False: perform the normal division
+    data["l_bpFaced"] == 0, 
+    np.nan,                  
+    data["l_bpSaved"] / data["l_bpFaced"]
     )
 
 data["w_bp_won_per_achieved"] = 1 - data["l_bp_saved_per_faced"]
@@ -62,11 +61,27 @@ data["l_firstserve_win"] = data['l_1stWon']/data['w_svpt']
 column_mapping = {"winner_id": "w_id", "loser_id": "l_id"}
 data.rename(columns=column_mapping, inplace=True)
 
-data = data[['tourney_date', 'w_id', 'w_games_won', "w_aces_per_serve", "w_bp_saved_per_faced", "w_bp_won_per_achieved", "w_serve_winloss", "w_nonserve_winloss", "w_firstserve_win", "winner_rank_points",
-             'l_id', 'l_games_won', "l_aces_per_serve", "l_bp_saved_per_faced", "l_bp_won_per_achieved", "l_serve_winloss", "l_nonserve_winloss", "l_firstserve_win", "loser_rank_points"]]
+data = data[['tourney_date', 
+             'w_id', 
+             'w_games_won', 
+             "w_aces_per_serve", 
+             "w_bp_saved_per_faced", 
+             "w_bp_won_per_achieved", 
+             "w_serve_winloss", 
+             "w_nonserve_winloss", 
+             "w_firstserve_win", 
+             "winner_rank_points",
+             'l_id', 
+             'l_games_won', 
+             "l_aces_per_serve", 
+             "l_bp_saved_per_faced", 
+             "l_bp_won_per_achieved", 
+             "l_serve_winloss", 
+             "l_nonserve_winloss", 
+             "l_firstserve_win", 
+             "loser_rank_points"]]
 
 data = data.sort_values(by=['tourney_date', "w_id"], ascending=[False, True])
 data = data.reset_index(drop=True)
-
 
 data.to_csv("data.csv")

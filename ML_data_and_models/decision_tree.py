@@ -3,11 +3,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.impute import SimpleImputer
-import matplotlib.pyplot as plt
-from sklearn import tree
-from sklearn.preprocessing import StandardScaler
-from sklearn.compose import ColumnTransformer
-import os
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 import joblib
@@ -17,9 +12,9 @@ dataframe = pd.read_csv('ML_ready_data.csv', index_col=0)
                         
 X = dataframe.drop(columns=["player1_win"])
 y = dataframe['player1_win']
-x_train, x_test, y_train, y_test = train_test_split(X,y, random_state=0, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.2)
 
-pipeline = Pipeline([("imputer",SimpleImputer(strategy='mean')), ('decision_tree', DecisionTreeClassifier(random_state=0))])
+pipeline = Pipeline([("imputer",SimpleImputer(strategy='mean')), ('decision_tree', DecisionTreeClassifier(max_depth=5))])
 
 pipeline.fit(x_train, y_train)
 y_pred = pipeline.predict(x_test)
