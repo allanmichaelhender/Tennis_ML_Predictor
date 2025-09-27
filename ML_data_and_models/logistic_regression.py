@@ -30,10 +30,10 @@ clf = RandomizedSearchCV(logistic_regr_pipeline, parameters, n_iter=50, cv=5)
 clf.fit(x_train, y_train)
 
 best_pipeline = clf.best_estimator_
-print("Best pipeline configuration:\n", best_pipeline)
-print("\nBest parameters found: ", clf.best_params_)
+print("Best pipeline configuration: ", best_pipeline)
+print("Best parameters found: ", clf.best_params_)
 
 best_pipeline_score = best_pipeline.score(x_test, y_test)
-print(f"\nPipeline score on test data: {best_pipeline_score:.4f}")
+print(f"Pipeline score on test data: {best_pipeline_score:.4f}")
 
 joblib.dump(best_pipeline, 'logistic_regr_pipeline.joblib')

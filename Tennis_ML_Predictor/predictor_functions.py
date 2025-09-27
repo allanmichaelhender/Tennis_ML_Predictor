@@ -53,6 +53,8 @@ def generate_data(player1_full_name, player2_full_name):
     player1_total_game_losses = player1_w["l_games_won"].sum() + player1_l["w_games_won"].sum()
 
     player1_game_winloss = player1_total_game_wins / player1_total_game_losses
+
+    total_matches = len(player1_w) + len(player1_l)
     
     player1_aces_per_serve_count = player1_w["w_aces_per_serve"].sum() + player1_l["l_aces_per_serve"].sum()
     player1_aces_per_serve = player1_aces_per_serve_count/total_matches
