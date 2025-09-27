@@ -1,7 +1,6 @@
 import joblib 
 import pandas as pd
 import os
-from . import settings
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 random_forest_path = os.path.join(script_dir, 'random_forest_model.joblib')
@@ -54,30 +53,23 @@ def generate_data(player1_full_name, player2_full_name):
     player1_total_game_losses = player1_w["l_games_won"].sum() + player1_l["w_games_won"].sum()
 
     player1_game_winloss = player1_total_game_wins / player1_total_game_losses
-
+    
     player1_aces_per_serve_count = player1_w["w_aces_per_serve"].sum() + player1_l["l_aces_per_serve"].sum()
-    total_matches = len(player1_w) + len(player1_l)
-
     player1_aces_per_serve = player1_aces_per_serve_count/total_matches
-
+    
     player1_bp_saved_per_faced_count = player1_w["w_bp_saved_per_faced"].sum() + player1_l["l_bp_saved_per_faced"].sum()
-
     player1_bp_saved_per_faced = player1_bp_saved_per_faced_count/total_matches
     
     player1_bp_won_per_achieved_count = player1_w["w_bp_won_per_achieved"].sum() + player1_l["l_bp_won_per_achieved"].sum()
-
     player1_bp_won_per_achieved = player1_bp_won_per_achieved_count/total_matches
 
     player1_serve_winloss_count = player1_w["w_serve_winloss"].sum() + player1_l["l_serve_winloss"].sum()
-
     player1_serve_winloss = player1_serve_winloss_count/total_matches
     
     player1_nonserve_winloss_count = player1_w["w_nonserve_winloss"].sum() + player1_l["l_nonserve_winloss"].sum()
-
     player1_nonserve_winloss = player1_nonserve_winloss_count/total_matches
 
     player1_firstserve_win_count = player1_w["w_firstserve_win"].sum() + player1_l["w_firstserve_win"].sum()
-
     player1_firstserve_win = player1_firstserve_win_count/total_matches
 
     player2_match_winloss = len(player2_w)/(len(player2_w) + len(player2_l))
@@ -85,33 +77,27 @@ def generate_data(player1_full_name, player2_full_name):
     player2_total_game_wins = player2_w["w_games_won"].sum() + player2_l["l_games_won"].sum()
     player2_total_game_losses = player2_w["l_games_won"].sum() + player2_l["w_games_won"].sum()
 
+    total_matches = len(player2_w) + len(player2_l)
+
     player2_game_winloss = player2_total_game_wins / player2_total_game_losses
 
     player2_aces_per_serve_count = player2_w["w_aces_per_serve"].sum() + player2_l["l_aces_per_serve"].sum()
-    total_matches = len(player2_w) + len(player2_l)
-
     player2_aces_per_serve = player2_aces_per_serve_count/total_matches
 
     player2_bp_saved_per_faced_count = player2_w["w_bp_saved_per_faced"].sum() + player2_l["l_bp_saved_per_faced"].sum()
-
     player2_bp_saved_per_faced = player2_bp_saved_per_faced_count/total_matches
 
     player2_bp_won_per_achieved_count = player2_w["w_bp_won_per_achieved"].sum() + player2_l["l_bp_won_per_achieved"].sum()
-
     player2_bp_won_per_achieved = player2_bp_won_per_achieved_count/total_matches
 
     player2_serve_winloss_count = player2_w["w_serve_winloss"].sum() + player2_l["l_serve_winloss"].sum()
-
     player2_serve_winloss = player2_serve_winloss_count/total_matches
     
     player2_nonserve_winloss_count = player2_w["w_nonserve_winloss"].sum() + player2_l["l_nonserve_winloss"].sum()
-
     player2_nonserve_winloss = player2_nonserve_winloss_count/total_matches
 
     player2_firstserve_win_count = player2_w["w_firstserve_win"].sum() + player2_l["w_firstserve_win"].sum()
-
     player2_firstserve_win = player2_firstserve_win_count/total_matches
-
     
     match_winloss_diff = (player1_match_winloss - player2_match_winloss)
     game_winloss_diff = (player1_game_winloss - player2_game_winloss)
@@ -122,7 +108,6 @@ def generate_data(player1_full_name, player2_full_name):
     nonserve_winloss_diff = (player1_nonserve_winloss - player2_nonserve_winloss)
     firstserve_win_diff = (player1_firstserve_win - player2_firstserve_win)
 
-
     data_list = pd.DataFrame([{
                 "ranking_diff": ranking_diff,
                 "match_winloss_diff": match_winloss_diff,
@@ -132,10 +117,7 @@ def generate_data(player1_full_name, player2_full_name):
                 "bp_won_per_achieved_diff": bp_won_per_faced_diff,
                 "serve_winloss_diff": serve_winloss_diff,
                 "nonserve_winloss_diff": nonserve_winloss_diff,
-                "firstserve_win_diff": firstserve_win_diff}])
-  
-    
-
+                "firstserve_win_diff": firstserve_win_diff}])  
     return data_list
 
 

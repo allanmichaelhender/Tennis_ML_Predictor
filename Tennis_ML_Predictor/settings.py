@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -112,13 +111,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-# Your STATIC_URL should be set.
 STATIC_URL = '/static/'
 
-# When DEBUG is False (i.e., in production on Render), configure STATIC_ROOT.
 if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles`.
-    # This is a convention for many platforms, including Render.
+
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if not DEBUG:

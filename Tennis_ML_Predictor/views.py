@@ -8,7 +8,6 @@ def random_forest(request):
             if form.is_valid():
                 player_one = form.cleaned_data['player_one']
                 player_two = form.cleaned_data['player_two']
-                # Process your data, e.g., save to a database or perform a lookup
                 context = {
                     'form': form,
                     'player_one': player_one,
@@ -29,7 +28,6 @@ def logistic_regression(request):
             if form.is_valid():
                 player_one = form.cleaned_data['player_one']
                 player_two = form.cleaned_data['player_two']
-                # Process your data, e.g., save to a database or perform a lookup
                 context = {
                     'form': form,
                     'player_one': player_one,
@@ -50,7 +48,6 @@ def decision_tree(request):
             if form.is_valid():
                 player_one = form.cleaned_data['player_one']
                 player_two = form.cleaned_data['player_two']
-                # Process your data, e.g., save to a database or perform a lookup
                 context = {
                     'form': form,
                     'player_one': player_one,

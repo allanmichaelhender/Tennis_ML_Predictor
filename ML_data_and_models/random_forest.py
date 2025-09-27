@@ -12,7 +12,7 @@ X = dataframe.drop(columns=["player1_win"])
 y = dataframe['player1_win']
 x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.2)
 
-rf = RandomForestClassifier()
+rf = RandomForestClassifier(n_estimators=250)
 print('Random Forest parameters:')
 rf_params = rf.get_params()
 print(rf_params)
