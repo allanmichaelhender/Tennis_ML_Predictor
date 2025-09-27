@@ -74,6 +74,8 @@ def generate_data(player1_full_name, player2_full_name):
     player1_firstserve_win_count = player1_w["w_firstserve_win"].sum() + player1_l["w_firstserve_win"].sum()
     player1_firstserve_win = player1_firstserve_win_count/total_matches
 
+
+
     player2_match_winloss = len(player2_w)/(len(player2_w) + len(player2_l))
 
     player2_total_game_wins = player2_w["w_games_won"].sum() + player2_l["l_games_won"].sum()
