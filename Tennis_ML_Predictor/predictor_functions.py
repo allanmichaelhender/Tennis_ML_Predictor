@@ -3,19 +3,19 @@ import pandas as pd
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-random_forest_path = os.path.join(script_dir, 'random_forest_model.joblib')
+random_forest_path = os.path.join(script_dir, 'data_and_models/random_forest_model.joblib')
 random_forest = joblib.load(random_forest_path)
 
-logistic_regr_pipeline_path = os.path.join(script_dir, 'logistic_regr_pipeline.joblib')
+logistic_regr_pipeline_path = os.path.join(script_dir, 'data_and_models/logistic_regr_pipeline.joblib')
 logistic_regr_pipeline = joblib.load(logistic_regr_pipeline_path)
 
-decision_tree_pipeline_path = os.path.join(script_dir, 'decision_tree_pipeline.joblib')
+decision_tree_pipeline_path = os.path.join(script_dir, 'data_and_models/decision_tree_pipeline.joblib')
 decision_tree_pipeline = joblib.load(decision_tree_pipeline_path)
 
-players_csv_path = os.path.join(script_dir, 'players_data.csv')
+players_csv_path = os.path.join(script_dir, 'data_and_models/players_data.csv')
 players = pd.read_csv(players_csv_path)
 
-data_path = os.path.join(script_dir, 'data.csv')
+data_path = os.path.join(script_dir, 'data_and_models/data.csv')
 data = pd.read_csv(data_path,index_col=0)
 data['tourney_date'] = pd.to_datetime(data['tourney_date'])
 
