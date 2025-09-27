@@ -10,7 +10,7 @@ dataframe = pd.read_csv("ML_ready_data.csv", index_col=0)
                         
 X = dataframe.drop(columns=["player1_win"])
 y = dataframe['player1_win']
-x_train, x_test, y_train, y_test = train_test_split(X,y, random_state=0, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.2)
 
 rf = RandomForestClassifier()
 print('Random Forest parameters:')

@@ -75,7 +75,7 @@ for index in range(index_range):
 
             
 
-            
+
             player2_match_winloss = len(player2_w)/(len(player2_w) + len(player2_l))
 
             player2_total_game_wins = player2_w["w_games_won"].sum() + player2_l["l_games_won"].sum()
@@ -131,7 +131,7 @@ for index in range(index_range):
 ML_ready_data = pd.DataFrame(row_list)
 ML_ready_data.to_csv("ML_ready_data.csv")
 
-players_info = pd.read_csv("/Data/atp_players.csv")
+players_info = pd.read_csv("Data/atp_players.csv")
 today_timestamp = pd.to_datetime('2025-01-01')
 six_months_ago = today_timestamp - pd.DateOffset(months=6)
 last_six_months = (data['tourney_date'] >= six_months_ago)
@@ -146,7 +146,7 @@ players = pd.merge(players, players_info, on='player_id', how='left')
 players['full_name'] = players['name_first'] + ' ' + players['name_last']
 players = players.drop(columns=["name_first", "name_last"])
 
-ranking_info = pd.read_csv("/Data/ranking_points.csv")
+ranking_info = pd.read_csv("Data/ranking_points.csv")
 ranking_info['ranking_points'] = pd.to_numeric(ranking_info['ranking_points'].str.replace(',', ''), errors='coerce')
 
 players = pd.merge(players, ranking_info, on='full_name', how='inner')
