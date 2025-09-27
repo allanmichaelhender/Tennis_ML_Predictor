@@ -6,7 +6,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 import joblib
 from sklearn.impute import SimpleImputer
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+from scipy.stats import loguniform
 
 
 dataframe = pd.read_csv('ML_ready_data.csv', index_col=0)
@@ -15,35 +16,24 @@ X = dataframe.drop(columns=["player1_win"])
 y = dataframe['player1_win']
 x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.2)
 
-#rank_points = Pipeline([("imputer",SimpleImputer(strategy='mean'))])
-non_rank_points = Pipeline([("imputer",SimpleImputer(strategy='mean')), ("scale",StandardScaler())])
+logistic_regr_pipeline = Pipeline([
+    ("scalar", StandardScaler()), 
+    ("regr", LogisticRegression(solver='liblinear', max_iter=1000))
+    ])
 
-#rank_points_col = ["ranking_diff"]
-non_rank_cols = X.columns#.drop(columns=["ranking_diff"]).columns
+parameters = {    
+    'regr__C': loguniform(0.001, 1000),
+    'regr__penalty': ['l1', 'l2']
+}
 
-preprocess = ColumnTransformer(
-    transformers=[
-        #("rank_points_process", rank_points, rank_points_col),
-        ("non_rank_process", non_rank_points, non_rank_cols)
-    ]
-)
+clf = RandomizedSearchCV(logistic_regr_pipeline, parameters, n_iter=50, cv=5)
+clf.fit(x_train, y_train)
 
-lr = LogisticRegression(solver='liblinear', max_iter=1000)
-parameters = {'penalty': ['l1', 'l2'], 'C': [1, 10, 100, 1000]}
-clf = GridSearchCV(lr, parameters)
-scaler = StandardScaler()
+best_pipeline = clf.best_estimator_
+print("Best pipeline configuration:\n", best_pipeline)
+print("\nBest parameters found: ", clf.best_params_)
 
-x_train_scaled = scaler.fit_transform(x_train)
-clf.fit(x_train_scaled,y_train)
-best_model=clf.best_estimator_
-print(best_model)
+best_pipeline_score = best_pipeline.score(x_test, y_test)
+print(f"\nPipeline score on test data: {best_pipeline_score:.4f}")
 
-logistic_regr_pipeline = Pipeline([("preprocess", preprocess), ("regr", best_model)])
-
-logistic_regr_pipeline.fit(x_train, y_train)
-y_pred = logistic_regr_pipeline.predict(x_test)
-
-logistic_regr_pipeline_score = logistic_regr_pipeline.score(x_test, y_test)
-print(logistic_regr_pipeline_score)
-
-joblib.dump(logistic_regr_pipeline, 'logistic_regr_pipeline.joblib')
+joblib.dump(best_pipeline, 'logistic_regr_pipeline.joblib')
